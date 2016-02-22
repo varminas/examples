@@ -19,6 +19,7 @@ import static java.util.stream.Collectors.toList;
  * Created by Vytautas on 2015-09-13.
  */
 public class StreamsApp {
+
     private static List<Transaction> transactions;
     static {
         transactions = new ArrayList<>();

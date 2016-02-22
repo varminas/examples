@@ -9,6 +9,7 @@ import static org.junit.Assert.*;
 public class StreamsAppTest {
 
     private StreamsApp streamsApp;
+
     @Before
     public void setUp() throws Exception {
         streamsApp = new StreamsApp();

@@ -11,6 +11,7 @@ import java.util.stream.IntStream;
  * Created by Vytautas on 2016-01-26.
  */
 public class FutureTest {
+
     @Test
     public void testListenableFuture() {
         ListeningExecutorService service = MoreExecutors.listeningDecorator(Executors.newFixedThreadPool(2));
