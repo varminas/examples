@@ -8,7 +8,7 @@ import java.util.function.Function;
  */
 public class FirstClassCitizen {
     public static void main(String[] args) {
-        BiFunction<String, String, String> concatFunction = (s, t) -> s + " " + t;
+        BiFunction<String, String, String> concatFunction = (s, t) -> s + "; " + t;
 
         System.out.println(concatFunction.apply("vienas", "du"));
 
@@ -19,6 +19,9 @@ public class FirstClassCitizen {
         System.out.println(concatAndTransform("vienaS", "Du", (s) -> {
             return s.toUpperCase();
         }));
+
+        concatFunction = FirstClassCitizen::concatString;
+        System.out.println(concatFunction.apply("vytautas", "arminas"));
     }
 
     public static String concatAndTransform(String a, String b, Function<String, String> stringTransform) {
@@ -27,5 +30,13 @@ public class FirstClassCitizen {
             b = stringTransform.apply(b);
         }
         return a + b;
+    }
+
+    public static String concatString(String s1, String s2) {
+        return s1 + s2;
+    }
+
+    public static String concat3String(String s1, String s2, String s3) {
+        return s1 + s2 + s3;
     }
 }

@@ -8,9 +8,8 @@ import java.util.function.Supplier;
  */
 public class HigherOrderFunctions {
     public static void main(String[] args) {
-        System.out.println(createCombineAndTransform("vienas", "du", (s) -> {
-            return s.toUpperCase();
-        })
+        System.out.println(
+                createCombineAndTransform("vienas", "du", (s) -> s.toUpperCase())
                 .get());
     }
 
