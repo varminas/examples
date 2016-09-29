@@ -1,4 +1,4 @@
-package lt.arminai;
+package lt.arminai.helper;
 
 import java.util.ArrayList;
 import java.util.List;

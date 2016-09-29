@@ -1,4 +1,4 @@
-package lt.arminai;
+package lt.arminai.functions;
 
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -9,7 +9,7 @@ import java.util.function.Supplier;
 public class HigherOrderFunctions {
     public static void main(String[] args) {
         System.out.println(
-                createCombineAndTransform("vienas", "du", (s) -> s.toUpperCase())
+                createCombineAndTransform("vienas ", "du", (s) -> s.toUpperCase())
                 .get());
     }
 

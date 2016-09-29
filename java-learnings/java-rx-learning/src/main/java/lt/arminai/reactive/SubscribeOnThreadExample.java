@@ -1,5 +1,6 @@
-package lt.arminai;
+package lt.arminai.reactive;
 
+import lt.arminai.helper.DataGenerator;
 import rx.Observable;
 import rx.schedulers.Schedulers;
 
@@ -35,7 +36,7 @@ public class SubscribeOnThreadExample {
                                 }
                             }
                     );
-            Thread.currentThread().wait(1);
+//            Thread.currentThread().wait(1);
         }
     }
 }

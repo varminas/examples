@@ -1,5 +1,6 @@
-package lt.arminai;
+package lt.arminai.reactive;
 
+import lt.arminai.helper.DataGenerator;
 import rx.Observable;
 
 import java.util.List;
