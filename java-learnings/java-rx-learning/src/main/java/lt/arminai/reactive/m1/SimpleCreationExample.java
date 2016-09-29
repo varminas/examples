@@ -1,4 +1,4 @@
-package lt.arminai.reactive;
+package lt.arminai.reactive.m1;
 
 
 import lt.arminai.helper.DataGenerator;
@@ -10,6 +10,7 @@ import rx.Observable;
 public class SimpleCreationExample {
     public static void main(String[] args) {
         Observable<Integer> observable;
+
         System.out.println("Observable creation from the single value:");
         observable = Observable.just(Integer.valueOf(5));
         observable.subscribe((i) -> System.out.println(i));
