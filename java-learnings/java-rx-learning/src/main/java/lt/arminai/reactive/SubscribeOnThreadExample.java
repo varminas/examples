@@ -36,7 +36,7 @@ public class SubscribeOnThreadExample {
                                 }
                             }
                     );
-//            Thread.currentThread().wait(1);
+            Thread.currentThread().wait(1);
         }
     }
 }

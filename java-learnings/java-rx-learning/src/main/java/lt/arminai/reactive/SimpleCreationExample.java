@@ -10,17 +10,16 @@ import rx.Observable;
 public class SimpleCreationExample {
     public static void main(String[] args) {
         Observable<Integer> observable;
-        System.out.println("Observable creation from the single value");
-//        observable = Observable.from(Integer.valueOf(5));
-//        observable.subscribe((i) -> System.out.println(i));
+        System.out.println("Observable creation from the single value:");
+        observable = Observable.just(Integer.valueOf(5));
+        observable.subscribe((i) -> System.out.println(i));
 
-        System.out.println("Observable creation from the Iterable");
+        System.out.println("Observable creation from the Iterable:");
         observable = Observable.from(DataGenerator.generateFibonacciList());
         observable.subscribe((i) -> System.out.println(i));
 
-        System.out.println("Observable creation from the Array");
+        System.out.println("Observable creation from the Array:");
         observable = Observable.from(DataGenerator.generateFibonacciArray());
         observable.subscribe((i) -> System.out.println(i));
-
     }
 }
