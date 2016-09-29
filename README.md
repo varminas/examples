@@ -1,1 +1,1 @@
-# examples of various projects
+# Examples of various java projects
