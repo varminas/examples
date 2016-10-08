@@ -1,6 +1,7 @@
 package lt.arminai.helper;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
@@ -45,8 +46,16 @@ public class DataGenerator {
         list.add("Psi");
         list.add("omega");
 
+        return list;
+    }
 
+    public static List<String> generateScrumbleAndDuppedGreekAlphabet() {
+        List<String> list = new ArrayList<>();
+        list.addAll(generateGreekAlphabet());
+        list.addAll(generateGreekAlphabet());
+        list.addAll(generateGreekAlphabet());
 
+        Collections.shuffle(list);
         return list;
     }
 }
