@@ -41,7 +41,7 @@ public class TimedEventSequence<T> {
             try {
                 while (eventThread.isInterrupted() == false) {
                     try {
-                        Thread.sleep(50);
+                        Thread.sleep(500);
                     } catch (InterruptedException e) {
                         break;
                     }

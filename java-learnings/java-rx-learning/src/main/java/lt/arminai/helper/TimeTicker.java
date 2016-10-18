@@ -49,6 +49,7 @@ public class TimeTicker {
                     long currentTime = System.currentTimeMillis();
                     if (currentTime - lastTick > interval) {
                         lastTick = currentTime;
+                        System.out.print(".");
                         tickerSubject.onNext(lastTick);
                     }
                 }

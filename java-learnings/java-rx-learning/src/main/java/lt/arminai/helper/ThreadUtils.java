@@ -18,4 +18,8 @@ public final class ThreadUtils {
             // ignore
         }
     }
+
+    public static String currentThreadName() {
+        return Thread.currentThread().getName();
+    }
 }
