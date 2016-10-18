@@ -17,15 +17,19 @@ public class JdbcUsingExample {
 
         TestDatabase.init();
 
-        Func0<ConnectionSubsription> resourceFactory = () -> {
-            return new ConnectionSubsription(TestDatabase.createConnection());
+        Func0<ConnectionSubscription> resourceFactory = () -> {
+            return new ConnectionSubscription(TestDatabase.createConnection());
         };
 
-        Func1<ConnectionSubsription, Observable<String>> greekAlphabetList = (connectionSubsription) -> {
-            return TestDatabase.selectGreekAlphabet(connectionSubsription);
+        Func1<ConnectionSubscription, Observable<String>> greekAlphabetList = (connectionSubscription) -> {
+            return TestDatabase.selectGreekAlphabet(connectionSubscription);
         };
 
-        Observable<String> t = Observable.using(resourceFactory, greekAlphabetList, null);
+        Action1<ConnectionSubscription> dispose = (connectionSubscription) -> {
+            connectionSubscription.unsubscribe();
+        };
+
+        Observable<String> t = Observable.using(resourceFactory, greekAlphabetList, dispose);
         t.subscribe(
                 (letter) -> {
                     System.out.println(ThreadUtils.currentThreadName() + " - " + letter);

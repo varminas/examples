@@ -30,7 +30,7 @@ public class TestDatabase {
             throw new RuntimeException(e.getMessage());
         }
 
-        Connection c = null;
+        Connection c;
 
         try {
             DriverManager.getConnection("jdbc:derby:rxJavaTest;create=true");
@@ -81,13 +81,13 @@ public class TestDatabase {
         }
     }
 
-    public static Observable<String> selectGreekAlphabet(ConnectionSubsription connectionSubsription) {
+    public static Observable<String> selectGreekAlphabet(ConnectionSubscription connectionSubscription) {
         try {
-            Statement s = connectionSubsription.getConnection().createStatement();
-            connectionSubsription.registerResourceForClose(s);
+            Statement s = connectionSubscription.getConnection().createStatement();
+            connectionSubscription.registerResourceForClose(s);
 
             ResultSet rs = s.executeQuery("SELECT LETTER FROM GREEK_ALPHABET");
-            connectionSubsription.registerResourceForClose(rs);
+            connectionSubscription.registerResourceForClose(rs);
 
             List<String> returnList = new ArrayList<>();
             while(rs.next()) {

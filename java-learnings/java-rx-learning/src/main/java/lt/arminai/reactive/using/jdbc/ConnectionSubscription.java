@@ -11,13 +11,13 @@ import java.util.HashSet;
 /**
  * Created by vytautas on 2016-10-18.
  */
-public class ConnectionSubsription implements Subscription {
+public class ConnectionSubscription implements Subscription {
 
     private final Connection connection;
     private final HashSet<Statement> statements = new HashSet<>();
     private final HashSet<ResultSet> resultSets = new HashSet<>();
 
-    public ConnectionSubsription(Connection connection) {
+    public ConnectionSubscription(Connection connection) {
         this.connection = connection;
     }
 
@@ -43,7 +43,33 @@ public class ConnectionSubsription implements Subscription {
 
     @Override
     public boolean isUnsubscribed() {
-        return false;
+
+            boolean result1 =  statements.stream().filter(s -> {
+                try {
+                    return !s.isClosed();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                return false;
+            }).findFirst().isPresent();
+
+        boolean result2 =  resultSets.stream().filter(s -> {
+            try {
+                return !s.isClosed();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return false;
+        }).findFirst().isPresent();
+
+        boolean result3 = false;
+        try {
+            result3 = connection.isClosed();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return result1 && result2 && result3;
     }
 
     public Connection getConnection() {
