@@ -90,7 +90,7 @@ public class TestDatabase {
             connectionSubscription.registerResourceForClose(rs);
 
             List<String> returnList = new ArrayList<>();
-            while(rs.next()) {
+            while (rs.next()) {
                 returnList.add(rs.getString("LETTER"));
             }
 

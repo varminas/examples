@@ -3,7 +3,6 @@ package lt.arminai.helper;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -37,14 +36,22 @@ public class DataGenerator {
 
     public static List<String> generateGreekAlphabet() {
         List<String> list = new ArrayList<>();
-        list.add("alpha");
-        list.add("beta");
-        list.add("gamma");
-        list.add("delta");
+        list.add("Alpha");
+        list.add("Beta");
+        list.add("Gamma");
+        list.add("Delta");
+        list.add("Epsilon");
+        list.add("Zeta");
+        list.add("Eta");
+        list.add("Theta");
+        list.add("Iota");
+        list.add("Kappa");
+        list.add("Lambda");
+        list.add("Mu");
         list.add("Phi");
         list.add("Chi");
         list.add("Psi");
-        list.add("omega");
+        list.add("Mmega");
 
         return list;
     }
