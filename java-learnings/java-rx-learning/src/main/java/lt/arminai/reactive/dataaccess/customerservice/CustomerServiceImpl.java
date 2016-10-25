@@ -3,6 +3,7 @@ package lt.arminai.reactive.dataaccess.customerservice;
 import lt.arminai.reactive.dataaccess.addressservice.AddressService;
 import lt.arminai.reactive.dataaccess.productservice.ProductService;
 import lt.arminai.reactive.dataaccess.server.Address;
+import lt.arminai.reactive.dataaccess.server.OwnedProduct;
 import lt.arminai.reactive.dataaccess.server.TestDatabaseProducers;
 import rx.Observable;
 
@@ -28,8 +29,24 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Observable<Customer> fetchCustomerWithAddressAndOwnedProduct(int customerId) {
-        Observable<Customer> selectCustomerObservable = fetchCustomer(customerId);
-        Observable<Address> selectAddressObservable = addressService.fetchCustomerAddress(customerId);
-        return null;
+        Observable<Customer> selectedCustomerObservable = fetchCustomer(customerId);
+        Observable<Address> selectedAddressObservable = addressService.fetchCustomerAddress(customerId);
+        Observable<OwnedProduct> selectedProductsObservable = productService.fetchOwnedProduct(customerId);
+
+        Observable<CustomerRelatedData> dataStream = Observable.concat(
+                selectedCustomerObservable,
+                selectedAddressObservable,
+                selectedProductsObservable
+        );
+//                .observeOn(Schedulers.computation());
+
+        Observable<Observable<CustomerRelatedData>> wrappedDataStream = Observable.just(dataStream);
+
+        CustomerZipAccumulator accum = new CustomerZipAccumulator();
+
+        Observable<Customer> finalObservable = Observable
+                .zip(wrappedDataStream, accum::collapseCustomerEvents)
+                .last();
+        return finalObservable;
     }
 }

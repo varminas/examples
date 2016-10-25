@@ -2,7 +2,9 @@ package lt.arminai.reactive.dataaccess.server;
 
 import lt.arminai.helper.SQLHelper;
 import lt.arminai.reactive.dataaccess.customerservice.Customer;
+import lt.arminai.reactive.using.jdbc.ConnectionSubscription;
 import rx.Observable;
+import rx.functions.Action1;
 
 import java.sql.SQLException;
 
@@ -11,19 +13,53 @@ import java.sql.SQLException;
  */
 public class TestDatabaseProducers {
 
+    Action1<ConnectionSubscription> dispose = (connectionSubscription) -> {
+        connectionSubscription.unsubscribe();
+    };
+
     public Observable<Customer> toSelectCustomersObservable() throws SQLException {
         return Observable.using(TestDatabase::createSubscription, (subscription) -> {
             try {
-                return SQLHelper.executeQuery(subscription, "SELECT ID, USERNAME FROm CUSTOMER", (rs) -> {
+                return SQLHelper.executeQuery(subscription, "SELECT ID, USERNAME FROM CUSTOMER", (rs) -> {
                     return new Customer(rs.getLong("ID"), rs.getString("USERNAME"));
                 });
             } catch (SQLException e) {
                 throw new RuntimeException(e.getMessage(), e);
             }
-        });
+        }, dispose);
     }
 
     public Observable<Customer> toSelectCustomersObservable(long customerId) throws SQLException {
-        return null;
+        return Observable.using(TestDatabase::createSubscription, (subscription) -> {
+            try {
+                System.out.println("Select Customer: " + Thread.currentThread().getName());
+                return SQLHelper.executeQuery(subscription, "SELECT ID, USERNAME FROM CUSTOMER WHERE ID =" + customerId, (rs) -> {
+                    return new Customer(rs.getLong("ID"), rs.getString("USERNAME"));
+                });
+            } catch (SQLException e) {
+                throw new RuntimeException(e.getMessage(), e);
+            }
+        }, dispose);
+    }
+
+    public Observable<Address> toSelectAddressObservable(long customerId) throws SQLException {
+        return Observable.using(TestDatabase::createSubscription, (subscription) -> {
+            try {
+                System.out.println("Select Address: " + Thread.currentThread().getName());
+                return SQLHelper.executeQuery(subscription, "SELECT ID, CUSTOMERID, ADDRESS1, ADDRESS2, CITY, STATE, ZIPCODE FROM ADDRESS WHERE CUSTOMERID = " + customerId,
+                        (rs) -> {
+                            return new Address(
+                                    rs.getLong("ID"),
+                                    rs.getLong("CUSTOMERID"),
+                                    rs.getString("ADDRESS1"),
+                                    rs.getString("ADDRESS2"),
+                                    rs.getString("CITY"),
+                                    rs.getString("STATE"),
+                                    rs.getString("ZIPCODE"));
+                        });
+            } catch (SQLException e) {
+                throw new RuntimeException(e.getMessage(), e);
+            }
+        }, dispose);
     }
 }

@@ -1,5 +1,6 @@
 package lt.arminai.reactive.dataaccess.server;
 
+import lt.arminai.helper.ThreadUtils;
 import lt.arminai.reactive.dataaccess.customerservice.Customer;
 import lt.arminai.reactive.dataaccess.customerservice.CustomerService;
 import lt.arminai.reactive.dataaccess.customerservice.CustomerServiceImpl;
@@ -26,7 +27,7 @@ public class EdgeServiceSimulation {
                         .subscribe(
                                 (customer) -> {
                                     System.out.println("----------------------------------------");
-                                    System.out.println(customer.getCustomerId() + " " + customer.getUserName());
+                                    System.out.println(customer.getCustomerId() + " " + customer.getUsername());
                                     System.out.println();
 
 
@@ -36,7 +37,7 @@ public class EdgeServiceSimulation {
                                         System.out.println();
                                     }
 
-                                    for (OwnedProduct product : customer.getOwnedProcutList()) {
+                                    for (OwnedProduct product : customer.getOwnedProductList()) {
                                         System.out.println("    Product: " + product.getName());
                                     }
                                     System.out.println();
@@ -55,5 +56,7 @@ public class EdgeServiceSimulation {
         } catch (Throwable t) {
             t.printStackTrace();
         }
+
+        ThreadUtils.sleep(10000);
     }
 }
