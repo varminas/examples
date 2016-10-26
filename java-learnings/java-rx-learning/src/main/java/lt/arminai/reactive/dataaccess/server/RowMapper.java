@@ -8,5 +8,5 @@ import java.sql.SQLException;
  */
 @FunctionalInterface
 public interface RowMapper<T> {
-    public T call(ResultSet rs) throws SQLException;
+    T call(ResultSet rs) throws SQLException;
 }

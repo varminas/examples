@@ -1,7 +1,6 @@
-package lt.arminai.reactive.dataaccess.customerservice;
+package lt.arminai.reactive.dataaccess.server.dto;
 
-import lt.arminai.reactive.dataaccess.server.Address;
-import lt.arminai.reactive.dataaccess.server.OwnedProduct;
+import lt.arminai.reactive.dataaccess.customerservice.CustomerRelatedData;
 
 /**
  * Created by vytautas on 2016-10-25.

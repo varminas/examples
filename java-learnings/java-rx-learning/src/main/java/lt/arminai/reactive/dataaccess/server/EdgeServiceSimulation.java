@@ -1,9 +1,10 @@
 package lt.arminai.reactive.dataaccess.server;
 
-import lt.arminai.helper.ThreadUtils;
-import lt.arminai.reactive.dataaccess.customerservice.Customer;
 import lt.arminai.reactive.dataaccess.customerservice.CustomerService;
 import lt.arminai.reactive.dataaccess.customerservice.CustomerServiceImpl;
+import lt.arminai.reactive.dataaccess.server.dto.Address;
+import lt.arminai.reactive.dataaccess.server.dto.Customer;
+import lt.arminai.reactive.dataaccess.server.dto.OwnedProduct;
 import rx.Observable;
 import rx.schedulers.Schedulers;
 
@@ -17,8 +18,11 @@ public class EdgeServiceSimulation {
 
             CustomerService customerService = new CustomerServiceImpl();
 
-            Object monitorObject = new Object();
-            synchronized (monitorObject) {
+            /**
+             * Create a monitor so that we don't exit the application too soon
+             */
+            Object waitMonitor = new Object();
+            synchronized (waitMonitor) {
 
                 Observable<Customer> customerData = customerService.fetchCustomerWithAddressAndOwnedProduct(1);
 
@@ -33,7 +37,7 @@ public class EdgeServiceSimulation {
 
                                     for (Address address : customer.getAddressList()) {
                                         System.out.println("    " + address.getAddress1());
-                                        System.out.println("    " + address.getCity() + ", " + address.getState());
+                                        System.out.println("    " + address.getCity() + ", " + address.getState() + " " + address.getZipCode());
                                         System.out.println();
                                     }
 
@@ -47,16 +51,17 @@ public class EdgeServiceSimulation {
                                     t.printStackTrace();
                                 },
                                 () -> {
-                                    synchronized (monitorObject) {
-                                        monitorObject.notify();
+                                    synchronized (waitMonitor) {
+                                        waitMonitor.notify();
                                     }
                                 }
                         );
+                waitMonitor.wait();
             }
-        } catch (Throwable t) {
-            t.printStackTrace();
+        } catch (InterruptedException ex) {
+            ex.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
-        ThreadUtils.sleep(10000);
     }
 }

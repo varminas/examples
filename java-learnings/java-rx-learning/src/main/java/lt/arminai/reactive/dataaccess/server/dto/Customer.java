@@ -1,9 +1,9 @@
-package lt.arminai.reactive.dataaccess.customerservice;
+package lt.arminai.reactive.dataaccess.server.dto;
 
-import lt.arminai.reactive.dataaccess.server.Address;
-import lt.arminai.reactive.dataaccess.server.OwnedProduct;
+import lt.arminai.reactive.dataaccess.customerservice.CustomerRelatedData;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -20,6 +20,7 @@ public class Customer extends CustomerRelatedData {
 
     public Customer(long customerId, String username) {
         super(customerId);
+
         this.username = username;
     }
 
@@ -32,7 +33,7 @@ public class Customer extends CustomerRelatedData {
     }
 
     public List<Address> getAddressList() {
-        return addresses;
+        return Collections.unmodifiableList(addresses);
     }
 
     public void addOwnedProduct(OwnedProduct op) {
@@ -40,6 +41,6 @@ public class Customer extends CustomerRelatedData {
     }
 
     public List<OwnedProduct> getOwnedProductList() {
-        return ownedProducts;
+        return Collections.unmodifiableList(ownedProducts);
     }
 }

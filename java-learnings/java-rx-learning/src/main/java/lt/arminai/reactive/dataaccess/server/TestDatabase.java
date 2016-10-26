@@ -15,8 +15,9 @@ import java.sql.Statement;
  * Created by vytautas on 2016-10-18.
  */
 public class TestDatabase {
+    private final static String DB_NAME = "myTest_m5";
     public static void init() {
-        File databaseDirectory = new File("./myTest_m5");
+        File databaseDirectory = new File("./" + DB_NAME);
         try {
             FileUtils.deleteDirectory(databaseDirectory);
         } catch (IOException e) {
@@ -34,8 +35,8 @@ public class TestDatabase {
         Connection c;
 
         try {
-            DriverManager.getConnection("jdbc:derby:myTest_m5;create=true");
-            c = DriverManager.getConnection("jdbc:derby:myTest_m5");
+            DriverManager.getConnection("jdbc:derby:" + DB_NAME + ";create=true");
+            c = DriverManager.getConnection("jdbc:derby:" + DB_NAME);
         } catch (SQLException e) {
             throw new RuntimeException(e.getMessage(), e);
         }
@@ -54,18 +55,18 @@ public class TestDatabase {
 
             SQLHelper.executeInsert(c, "INSERT INTO PRODUCT (ID, NAME) VALUES (1, 'Rubber Baseball Bat')");
             SQLHelper.executeInsert(c, "INSERT INTO PRODUCT (ID, NAME) VALUES (2, '+1 Fish Sward Witherin')");
-            SQLHelper.executeInsert(c, "INSERT INTO PRODUCT (ID, NAME) VALUES (3, 'Armband Floaties of Display')");
+            SQLHelper.executeInsert(c, "INSERT INTO PRODUCT (ID, NAME) VALUES (3, 'Armband Floaties of Displair')");
             SQLHelper.executeInsert(c, "INSERT INTO PRODUCT (ID, NAME) VALUES (4, 'Flowpot of Juiciness')");
 
-            SQLHelper.executeInsert(c, "INSERT INTO CUSTOMER_PRODUCT (ID, CUSTOMERID, PRODUCTID) VALUES (1, 1, 1)");
-            SQLHelper.executeInsert(c, "INSERT INTO CUSTOMER_PRODUCT (ID, CUSTOMERID, PRODUCTID) VALUES (2, 2, 2)");
+            SQLHelper.executeInsert(c, "INSERT INTO CUSTOMER_PRODUCT (ID, CUSTOMERID, PRODUCTID) VALUES (1, 1, 2)");
+            SQLHelper.executeInsert(c, "INSERT INTO CUSTOMER_PRODUCT (ID, CUSTOMERID, PRODUCTID) VALUES (2, 1, 3)");
 
-            SQLHelper.executeInsert(c, "INSERT INTO CUSTOMER_PRODUCT (ID, CUSTOMERID, PRODUCTID) VALUES (3, 2, 2)");
+            SQLHelper.executeInsert(c, "INSERT INTO CUSTOMER_PRODUCT (ID, CUSTOMERID, PRODUCTID) VALUES (3, 2, 1)");
             SQLHelper.executeInsert(c, "INSERT INTO CUSTOMER_PRODUCT (ID, CUSTOMERID, PRODUCTID) VALUES (4, 2, 2)");
-            SQLHelper.executeInsert(c, "INSERT INTO CUSTOMER_PRODUCT (ID, CUSTOMERID, PRODUCTID) VALUES (5, 2, 2)");
+            SQLHelper.executeInsert(c, "INSERT INTO CUSTOMER_PRODUCT (ID, CUSTOMERID, PRODUCTID) VALUES (5, 2, 3)");
 
-            SQLHelper.executeInsert(c, "INSERT INTO CUSTOMER_PRODUCT (ID, CUSTOMERID, PRODUCTID) VALUES (6, 2, 2)");
-            SQLHelper.executeInsert(c, "INSERT INTO CUSTOMER_PRODUCT (ID, CUSTOMERID, PRODUCTID) VALUES (7, 2, 2)");
+            SQLHelper.executeInsert(c, "INSERT INTO CUSTOMER_PRODUCT (ID, CUSTOMERID, PRODUCTID) VALUES (6, 3, 3)");
+            SQLHelper.executeInsert(c, "INSERT INTO CUSTOMER_PRODUCT (ID, CUSTOMERID, PRODUCTID) VALUES (7, 3, 4)");
 
             SQLHelper.executeInsert(c, "INSERT INTO ADDRESS (ID, CUSTOMERID, ADDRESS1, ADDRESS2, CITY, STATE, ZIPCODE) VALUES "
                     + "(1, 1, '123 South North Street', NULL, 'Forth Wayne', 'TX', '76222')");

@@ -9,7 +9,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by vytautas on 2016-10-25.
@@ -34,10 +33,11 @@ public final class SQLHelper {
     }
 
     public static <T> Observable<T> executeQuery(ConnectionSubscription subscription, String sqlString, RowMapper<T> rowMapper) throws SQLException {
-        List<T> workList = new ArrayList<>();
+        ArrayList<T> workList = new ArrayList<>();
 
         Statement s = subscription.getConnection().createStatement();
         subscription.registerResourceForClose(s);
+
         ResultSet rs = s.executeQuery(sqlString);
         subscription.registerResourceForClose(rs);
 

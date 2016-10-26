@@ -1,7 +1,9 @@
 package lt.arminai.reactive.dataaccess.server;
 
 import lt.arminai.helper.SQLHelper;
-import lt.arminai.reactive.dataaccess.customerservice.Customer;
+import lt.arminai.reactive.dataaccess.server.dto.Address;
+import lt.arminai.reactive.dataaccess.server.dto.Customer;
+import lt.arminai.reactive.dataaccess.server.dto.OwnedProduct;
 import lt.arminai.reactive.using.jdbc.ConnectionSubscription;
 import rx.Observable;
 import rx.functions.Action1;
@@ -11,7 +13,7 @@ import java.sql.SQLException;
 /**
  * Created by vytautas on 2016-10-25.
  */
-public class TestDatabaseProducers {
+public class TestDatabaseProcedures {
 
     Action1<ConnectionSubscription> dispose = (connectionSubscription) -> {
         connectionSubscription.unsubscribe();
@@ -40,6 +42,22 @@ public class TestDatabaseProducers {
                 throw new RuntimeException(e.getMessage(), e);
             }
         }, dispose);
+    }
+
+    public Observable<OwnedProduct> toSelectOwnedProductObservable(long customerId) throws SQLException {
+        return Observable.using(TestDatabase::createSubscription, (subscription) -> {
+            try {
+                System.out.println("Select Products: " + Thread.currentThread().getName());
+                return SQLHelper.executeQuery(subscription, "SELECT CUSTOMERID, PRODUCTID, NAME FROM CUSTOMER_PRODUCT CP "
+                                + "JOIN PRODUCT P ON P.ID = CP.PRODUCTID WHERE CUSTOMERID = " + customerId,
+                        (rs) -> {
+                            return new OwnedProduct(rs.getLong("CUSTOMERID"), rs.getLong("PRODUCTID"), rs.getString("NAME"));
+                        });
+            } catch (SQLException e) {
+                throw new RuntimeException(e.getMessage(), e);
+            }
+        }, dispose);
+
     }
 
     public Observable<Address> toSelectAddressObservable(long customerId) throws SQLException {

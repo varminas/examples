@@ -1,7 +1,7 @@
 package lt.arminai.reactive.dataaccess.addressservice;
 
-import lt.arminai.reactive.dataaccess.server.Address;
-import lt.arminai.reactive.dataaccess.server.TestDatabaseProducers;
+import lt.arminai.reactive.dataaccess.server.TestDatabaseProcedures;
+import lt.arminai.reactive.dataaccess.server.dto.Address;
 import rx.Observable;
 
 import java.sql.SQLException;
@@ -11,7 +11,7 @@ import java.sql.SQLException;
  */
 public class AddressService {
 
-    private final TestDatabaseProducers producers = new TestDatabaseProducers();
+    private final TestDatabaseProcedures producers = new TestDatabaseProcedures();
 
     public Observable<Address> fetchCustomerAddress(long customerId) {
         try {

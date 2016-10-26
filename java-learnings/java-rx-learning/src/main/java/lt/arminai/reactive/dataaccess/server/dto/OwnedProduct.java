@@ -1,4 +1,4 @@
-package lt.arminai.reactive.dataaccess.server;
+package lt.arminai.reactive.dataaccess.server.dto;
 
 import lt.arminai.reactive.dataaccess.customerservice.CustomerRelatedData;
 
@@ -14,6 +14,7 @@ public class OwnedProduct extends CustomerRelatedData {
 
     public OwnedProduct(long customerId, long productId, String name) {
         super(customerId);
+
         this.productId = productId;
         this.name = name;
     }

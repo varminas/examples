@@ -1,4 +1,4 @@
-package lt.arminai.reactive.dataaccess.server;
+package lt.arminai.reactive.dataaccess.server.dto;
 
 import lt.arminai.reactive.dataaccess.customerservice.CustomerRelatedData;
 
@@ -18,6 +18,7 @@ public class Address extends CustomerRelatedData {
 
     public Address(long id, long customerId, String address1, String address2, String city, String state, String zipCode) {
         super(customerId);
+
         this.id = id;
         this.address1 = address1;
         this.address2 = address2;
