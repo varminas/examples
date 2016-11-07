@@ -1,6 +1,3 @@
 .idea
 *.iml
 target
-.gitignore
-pom.xml
-src/
