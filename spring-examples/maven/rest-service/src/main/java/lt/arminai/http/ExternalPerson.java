@@ -13,6 +13,12 @@ public class ExternalPerson {
     private ExternalPerson() {
     }
 
+    public ExternalPerson(Person person) {
+        this.id = person.getId();
+        this.name = person.getName();
+        this.age = person.getAge();
+    }
+
     public Long getId() {
         return id;
     }

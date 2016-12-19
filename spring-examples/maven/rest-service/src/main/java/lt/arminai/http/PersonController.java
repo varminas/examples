@@ -24,10 +24,10 @@ public class PersonController {
     }
 
     @GetMapping(value = "{id}")
-    public Person get(@PathVariable("id") long id) {
+    public ExternalPerson get(@PathVariable("id") long id) {
         LOGGER.debug("get() request received. Id={}", id);
 
-        return personService.get(id);
+        return new ExternalPerson(personService.get(id));
     }
 
     @PostMapping
