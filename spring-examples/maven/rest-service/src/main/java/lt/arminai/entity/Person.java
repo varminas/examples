@@ -1,18 +1,27 @@
 package lt.arminai.entity;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
 /**
  * @author Vytautas Arminas
  */
+@Entity
 public class Person {
+    @Id
+    @GeneratedValue
     private Long id;
+    @Column(nullable = false)
     private String name;
+    @Column(nullable = false)
     private int age;
 
-    public Person() {
+    private Person() {
     }
 
-    public Person(Long id, String name, int age) {
-        this.id = id;
+    public Person(String name, int age) {
         this.name = name;
         this.age = age;
     }
