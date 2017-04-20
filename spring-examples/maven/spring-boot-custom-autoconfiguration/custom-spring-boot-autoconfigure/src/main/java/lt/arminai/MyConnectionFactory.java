@@ -10,15 +10,20 @@ import java.util.Map;
  */
 public class MyConnectionFactory {
     private static final Logger logger = LoggerFactory.getLogger(MyConnectionFactory.class);
-    private Map<String, Object> params;
 
-    public MyConnectionFactory(Map<String, Object> params) {
+    private Map<PARAMS, Object> params;
+
+    public MyConnectionFactory(Map<PARAMS, Object> params) {
         this.params = params;
     }
 
     public MyConnection create() {
         return () -> logger.debug("connecting to host: '{}', port: '{}'",
-                params.get(PARAMS.HOST.toString()), params.get(PARAMS.PORT.toString()));
+                params.get(PARAMS.HOST), params.get(PARAMS.PORT));
+    }
+
+    public Map<PARAMS, Object> getParams() {
+        return params;
     }
 
     public enum PARAMS {

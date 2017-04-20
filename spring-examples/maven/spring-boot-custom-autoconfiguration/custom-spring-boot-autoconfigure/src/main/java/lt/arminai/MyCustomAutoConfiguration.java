@@ -19,9 +19,9 @@ public class MyCustomAutoConfiguration {
 
     @Bean
     public MyConnectionFactory myConnectionFactory() {
-        Map<String, Object> params = new HashMap<>();
-        params.put(MyConnectionFactory.PARAMS.HOST.toString(), properties.getHost());
-        params.put(MyConnectionFactory.PARAMS.PORT.toString(), properties.getPort());
+        Map<MyConnectionFactory.PARAMS, Object> params = new HashMap<>();
+        params.put(MyConnectionFactory.PARAMS.HOST, properties.getHost());
+        params.put(MyConnectionFactory.PARAMS.PORT, properties.getPort());
 
         return new MyConnectionFactory(params);
     }
