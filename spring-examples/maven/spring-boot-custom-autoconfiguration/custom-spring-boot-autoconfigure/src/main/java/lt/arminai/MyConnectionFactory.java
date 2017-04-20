@@ -1,4 +1,4 @@
-package lt.arminai.config;
+package lt.arminai;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

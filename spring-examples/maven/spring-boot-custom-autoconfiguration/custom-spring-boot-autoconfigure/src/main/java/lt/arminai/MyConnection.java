@@ -1,4 +1,4 @@
-package lt.arminai.config;
+package lt.arminai;
 
 /**
  * @author Vytautas Arminas

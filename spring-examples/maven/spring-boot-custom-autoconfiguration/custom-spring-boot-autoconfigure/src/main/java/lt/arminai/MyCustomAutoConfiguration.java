@@ -1,4 +1,4 @@
-package lt.arminai.config;
+package lt.arminai;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
