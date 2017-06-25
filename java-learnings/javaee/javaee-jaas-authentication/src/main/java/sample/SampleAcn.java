@@ -38,7 +38,7 @@ public class SampleAcn {
     private void setup() {
         SecurityManager sm = new SecurityManager();
 
-        System.setProperty("java.security.auth.login.config", getConfigFilePath());
+//        System.setProperty("java.security.auth.login.config", getConfigFilePath());
         System.setProperty("java.security.policy", getPolicyFilePath());
 
         System.out.println(System.getProperty("java.security.auth.login.config"));

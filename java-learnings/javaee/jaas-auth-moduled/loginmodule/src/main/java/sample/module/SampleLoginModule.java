@@ -1,4 +1,6 @@
-package sample;
+package sample.module;
+
+import sample.principal.SamplePrincipal;
 
 import javax.security.auth.Subject;
 import javax.security.auth.callback.*;
@@ -73,7 +75,6 @@ public class SampleLoginModule implements LoginModule {
      */
     @Override
     public boolean login() throws LoginException {
-
         // prompt for a user name and password
         if (callbackHandler == null)
             throw new LoginException("Error: no CallbackHandler available " +

@@ -26,11 +26,14 @@ public class SampleAcn {
     private static final String CONFIG_NAME = "SampleConfig";
 
     public static void main(String[] args) {
+        TestClass testClass = new TestClass();
+        System.out.println(testClass.printWord());
         SampleAcn sampleAcn = new SampleAcn();
 
-        sampleAcn.setup();
+//        sampleAcn.setup();
 
         LoginContext loginContext = sampleAcn.createLoginContext();
+        System.out.println("Login context completed!");
 
         sampleAcn.login(loginContext);
     }
@@ -41,8 +44,8 @@ public class SampleAcn {
         System.setProperty("java.security.auth.login.config", getConfigFilePath());
         System.setProperty("java.security.policy", getPolicyFilePath());
 
-        System.out.println(System.getProperty("java.security.auth.login.config"));
-//        System.setSecurityManager(sm);
+        System.out.println("DEBUG: security.auth.login.config " + System.getProperty("java.security.auth.login.config"));
+        System.setSecurityManager(sm);
     }
 
     private String getConfigFilePath() {
@@ -66,6 +69,7 @@ public class SampleAcn {
             loginContext = new LoginContext(CONFIG_NAME, new MyCallbackHandler());
         } catch (LoginException | SecurityException le) {
             System.err.println("Cannot create login context. " + le.getMessage());
+            le.printStackTrace();
             System.exit(-1);
         }
         return loginContext;
@@ -80,11 +84,15 @@ public class SampleAcn {
                 performActions(loginContext);
             } catch (LoginException le) {
                 System.err.println("Authentication failed. " + le.getMessage());
+                le.printStackTrace();
                 try {
                     Thread.currentThread().sleep(3000);
                 } catch (Exception e) {
                     // ignore
                 }
+            } catch (Exception e) {
+                System.out.println("Error within login method" + e.getMessage());
+                throw e;
             }
         }
 

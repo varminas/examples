@@ -1,0 +1,11 @@
+/** Java 2 Access Control Policy for the JAAS Sample Application **/
+
+/* grant the sample LoginModule permissions */
+grant codebase "file:./target/login-module-1.0-SNAPSHOT.jar" {
+    permission javax.security.auth.AuthPermission "modifyPrincipals";
+};
+
+grant codebase "file:./target/acn-module-1.0-SNAPSHOT.jar" {
+
+   permission javax.security.auth.AuthPermission "createLoginContext.SampleConfig";
+};
