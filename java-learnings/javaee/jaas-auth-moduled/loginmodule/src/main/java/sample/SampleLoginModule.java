@@ -1,6 +1,4 @@
-package sample.module;
-
-import sample.principal.SamplePrincipal;
+package sample;
 
 import javax.security.auth.Subject;
 import javax.security.auth.callback.*;
@@ -69,7 +67,7 @@ public class SampleLoginModule implements LoginModule {
      *
      * @return true in all cases since this <code>LoginModule</code>
      * should not be ignored.
-     * @throws javax.security.auth.login.FailedLoginException if the authentication fails. <p>
+     * @throws FailedLoginException if the authentication fails. <p>
      * @throws LoginException                                 if this <code>LoginModule</code>
      *                                                        is unable to perform the authentication.
      */
