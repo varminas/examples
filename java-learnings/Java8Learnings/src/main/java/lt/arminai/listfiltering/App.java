@@ -7,13 +7,14 @@ import java.util.List;
 import java.util.stream.IntStream;
 
 public class App {
+    private final static String TYPE = "type99000";
     public static void main(String[] args) {
         App app = new App();
         List<Animal> list = app.getList();
 
         Instant start = Instant.now();
         String name = list.stream()
-                .filter(item -> item.getType().equals("Cat"))
+                .filter(item -> item.getType().equals(TYPE))
                 .findFirst()
                 .map(Animal::getName)
                 .orElse(null);
@@ -25,7 +26,7 @@ public class App {
 
         start = Instant.now();
         name = list.stream()
-                .filter(item -> item.getType().equals("Cat"))
+                .filter(item -> item.getType().equals(TYPE))
                 .map(Animal::getName)
                 .findFirst()
                 .orElse(null);
@@ -45,7 +46,7 @@ public class App {
         list.add(new Animal("Catty2", "Cat"));
         list.add(new Animal("Rex", "Dog"));
 
-        IntStream.range(1, 10000).forEach(i -> list.add(new Animal("Name" + i, "type" + i)));
+        IntStream.range(1, 100000).forEach(i -> list.add(new Animal("Name" + i, "type" + i)));
 
         return list;
     }
